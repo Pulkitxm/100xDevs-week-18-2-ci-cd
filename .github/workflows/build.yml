@@ -1,22 +1,22 @@
+name: Build on PR
 
-name: Linting and formatting on PR
 on:
   pull_request:
     branches:
-      - '**'
-    
+      - master
+
 jobs:
-
-  Continuous-Integration:
-
-    name: Performs linting, formatting on the application
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the Repository
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Run linting check
-        run: npm run lint
+        run: npm install
+        
+      - name: Run Build
+        run: npm run build
